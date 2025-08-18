@@ -1,4 +1,4 @@
-import {Entity,PrimaryGeneratedColumn,Column, BeforeInsert,OneToMany} from 'typeorm';
+import {Entity,PrimaryGeneratedColumn,Column, BeforeInsert,OneToMany,OneToOne} from 'typeorm';
 import * as bcrypt from 'bcrypt'
 import {Store} from 'src/store/entities/Store.entity'
 import {Ratings} from '../../ratings/entities/Ratings.entity';
@@ -34,8 +34,8 @@ export class Users{
     })
     role:UserRole;
 
-@OneToMany(() => Store, (store: Store) => store.owner)
-  stores: Store[];
+    @OneToOne(() => Store, (store: Store) => store.owner)
+    store: Store;
 
   @OneToMany(() => Ratings, (rating:Ratings) => rating.user)
   ratings: Ratings[];
