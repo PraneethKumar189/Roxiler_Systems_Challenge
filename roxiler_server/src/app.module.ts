@@ -6,6 +6,7 @@ import { ConfigModule } from '@nestjs/config';
 import { Users } from './users/entities/User.entity';
 import {UsersModule} from './users/users.module';
 import { AuthModule } from './auth/auth.module';
+import { RatingsModule } from './ratings/ratings.module';
 
 @Module({
   imports: [TypeOrmModule.forRoot({
@@ -21,7 +22,7 @@ import { AuthModule } from './auth/auth.module';
     isGlobal:true,
     envFilePath: '.env'
   }
-),UsersModule,AuthModule],
+),UsersModule,AuthModule, RatingsModule],
   controllers: [AppController],
   providers: [AppService],
 })

@@ -23,7 +23,4 @@ export class UserService {
         return this.usersRepository.findOne({where:{email}});
     }
 
-    async updateRefreshToken(user_id:number,refreshToken:string){
-        return this.usersRepository.update(user_id,{refreshToken});
-    }
 }

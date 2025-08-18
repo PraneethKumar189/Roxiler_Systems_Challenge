@@ -1,5 +1,7 @@
-import {Entity,PrimaryGeneratedColumn,Column, BeforeInsert} from 'typeorm';
+import {Entity,PrimaryGeneratedColumn,Column, BeforeInsert,OneToMany} from 'typeorm';
 import * as bcrypt from 'bcrypt'
+import {Store} from 'src/store/entities/Store.entity'
+import {Ratings} from '../../ratings/entities/Ratings.entity';
 
 export enum UserRole{
     USER = 'USER',
@@ -16,6 +18,9 @@ export class Users{
     name:string;
 
     @Column()
+    address:string;
+
+    @Column()
     email:string;
 
     @Column()
@@ -29,11 +34,16 @@ export class Users{
     })
     role:UserRole;
 
-    @Column({nullable:true})
-    refreshToken:string;
+@OneToMany(() => Store, (store: Store) => store.owner)
+  stores: Store[];
+
+  @OneToMany(() => Ratings, (rating:Ratings) => rating.user)
+  ratings: Ratings[];
 
     @BeforeInsert()
    async hashPassword(){
         this.password = await  bcrypt.hash(this.password,10);
     }
 }
+
+
